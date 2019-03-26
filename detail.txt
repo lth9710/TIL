@@ -1,0 +1,686 @@
+import React, { Component } from 'react';
+import {
+    Text,
+    View,
+    StyleSheet,
+    Image,
+    TextInput,
+    TouchableHighlight,
+    TouchableOpacity,
+    Alert,
+    ScrollView,
+    Animated,
+    Platform,
+    Keyboard,
+    StatusBar,
+    Modal,
+    KeyboardAvoidingView
+  } from 'react-native';
+  
+import {Navigation} from 'react-native-navigation';
+import { SafeAreaView } from 'react-native';
+
+
+
+export default class PhotoDetail extends Component {
+  state = {
+    modalVisible: false,
+    scrollY: new Animated.Value(0),
+    buttonDisabled: false,
+    heartVisible: false
+  };
+
+  setModalVisible(visible) {
+    this.setState({ modalVisible: visible });
+  }
+  // 수정할부분
+
+  
+  ShowHeartButtons = () =>
+    {
+      if (this.state.heartVisible == false) {
+        this.setState({ heartVisible: true});
+      }else if(this.state.heartVisible == true){
+        this.setState({ heartVisible: false});
+      }
+    }
+  
+  ShowButtons = () =>
+    {
+      if (this.state.buttonDisabled == false) {
+        this.setState({ buttonDisabled: true});
+      }else if(this.state.buttonDisabled == true){
+        this.setState({ buttonDisabled: false});
+      }
+    }
+
+  
+ 
+  render() {
+    return (
+      <SafeAreaView style={styles.container}>
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalVisible}>
+          <View style={{flex: 1,backgroundColor: 'rgba(0,0,0,1.0)'}}>
+            <TouchableHighlight
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}>
+                <View style={styles.close}>
+                  <Image source={require('./img/icoCloseW.png')} />
+                </View>
+              </TouchableHighlight>
+            <View style={styles.photoFill}>
+              <Image source={require('./img/photoFull.png')}
+                style={{ width:'100%',height:'100%',resizeMode:'contain'}} />
+            </View>
+            
+            
+            {/*수정할부분  */}
+            <TouchableOpacity activeOpacity = { 0.8 } heartVisible = { this.state.heartVisible } onPress = {()=> this.ShowHeartButtons.bind(this) }>
+            
+            
+            <View style={styles.photoGood}>
+            {this.state.heartVisible ? <Image source={require('./img/photoGoodFill.png')} /> : 
+              <Image source={require('./img/photoGood.png')} />
+            }
+            </View>
+            </TouchableOpacity>
+          </View>
+         
+          {/* 수정할부분 */}
+          <TouchableOpacity activeOpacity = { 0.8 } buttonDisabled = { this.state.buttonDisabled } onPress = {()=> this.ShowButtons.bind(this) } style = { styles.floating } >
+          <Image source={require('./img/photoMore.png')}  />
+          </TouchableOpacity>
+          {!this.state.buttonDisabled ?  null : 
+            <View>
+              <View><Image source={require('./img/photoMore.png')} style={styles.floating} /></View>
+              <View><Image source={require('./img/Declaration.png')} style={styles.declaration} /></View>    
+              <View><Image source={require('./img/down.png')} style={styles.down} /></View>
+              <View><Image source={require('./img/share.png')} style={styles.share} /></View>
+            </View>
+          }
+          
+         
+          
+          
+        </Modal>
+
+        <View style={styles.header}>
+          <View style={{width:24,left:16,opacity:0.9}}>
+            <Image source={require('./img/icoBack.png')} />
+          </View>
+          <View style={{alignItems: 'center' }}>
+            <Text style={styles.headerTxt}>포토피드</Text>
+          </View>
+          <View style={{width:24,right:16,alignItems: 'flex-end' }} />
+        </View>
+
+        <ScrollView containerStyle={styles.scrollcontainer}>
+          <View style={styles.content}>
+            <View style={styles.card}>
+              <View style={styles.user}>
+                <View><Image source={require('./img/profilePhoto2.jpg')} style={styles.profile}/ ></View>
+                <Text
+                  style={{ fontSize: 14, fontWeight: 'bold', lineHeight: 20 }}>
+                  moon_xoL
+                  <Text style={{ fontSize: 12, color: '#8969f0' }}>
+                    {' '}
+                    .LV 6{'\n'}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 11,
+                      fontWeight: 'normal',
+                      color: '#777',
+                    }}>
+                    1시간 전
+                  </Text>
+                </Text>
+                <Image
+                  style={{
+                    width: 12,
+                    position: 'absolute',
+                    right: 20,
+                    top: 20,
+                  }}
+                  source={require('./img/Icon_More.png')}
+                />
+              </View>
+              <TouchableOpacity
+                onPress={() => {
+                  this.setModalVisible(true);
+                }}>
+                <View style={{height:380}}><Image source={require('./img/profilePhoto3.jpg')} style={styles.photofeed}/ ></View>
+              </TouchableOpacity>
+
+              <View style={styles.txtfeed}>
+                <Text style={{ height: 'auto', fontSize: 14, lineHeight: 20 }}>
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                  laboris nisi ut aliquip ex ea commodo consequat.{' '}
+                </Text>
+                <View style={styles.commentBox}>
+                  <Image
+                    style={{
+                      width: 16,
+                      position: 'absolute',
+                      bottom: 16,
+                      left: 0,
+                    }}
+                    source={require('./img/icon_comment.png')}
+                  />
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      color: '#666',
+                      position: 'absolute',
+                      bottom: 17,
+                      left: 20,
+                    }}>
+                    33
+                  </Text>
+                  <Image
+                    style={{
+                      width: 16,
+                      position: 'absolute',
+                      bottom: 18,
+                      left: 53,
+                    }}
+                    source={require('./img/icon_heartFill.png')}
+                  />
+                  <Text
+                    style={{
+                      fontSize: 12,
+                      color: '#666',
+                      position: 'absolute',
+                      bottom: 17,
+                      left: 72,
+                    }}>
+                    {' '}
+                    7
+                  </Text>
+                </View>
+              </View>
+            </View>
+
+            <View style={styles.commentList}>
+              <View><Image source={require('./img/profilePhoto.jpg')} style={styles.profile}/ ></View>
+              <Text style={{ fontSize: 12, fontWeight: 'bold' }}>Lisa</Text>
+              <Text style={{ fontSize: 12, color: '#333', marginLeft: 10 }}>
+                제가 찾던 사진이에요 감사
+              </Text>
+              <View
+                style={{
+                  width: '100%',
+                  position: 'absolute',
+                  left: 70,
+                  bottom: 10,
+                }}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    답글달기
+                  </Text>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    신고
+                  </Text>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    수정
+                  </Text>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    삭제
+                  </Text>
+                </View>
+                <Text
+                  style={{
+                    fontSize: 11,
+                    color: '#666',
+                    position: 'absolute',
+                    right: 70,
+                    bottom: 0,
+                  }}>
+                  1시간 전
+                </Text>
+              </View>
+            </View>
+            <View style={styles.commentList}>
+              <View><Image source={require('./img/profilePhoto5.jpg')} style={styles.profile}/ ></View>
+              <Text style={{ fontSize: 12, fontWeight: 'bold' }}>Lisa</Text>
+              <Text style={{ fontSize: 12, color: '#333', marginLeft: 10 }}>
+                제가 찾던 사진이에요 감사
+              </Text>
+              <View
+                style={{
+                  width: '100%',
+                  position: 'absolute',
+                  left: 70,
+                  bottom: 10,
+                }}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    답글달기
+                  </Text>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    신고
+                  </Text>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    수정
+                  </Text>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    삭제
+                  </Text>
+                </View>
+                <Text
+                  style={{
+                    fontSize: 11,
+                    color: '#666',
+                    position: 'absolute',
+                    right: 70,
+                    bottom: 0,
+                  }}>
+                  1시간 전
+                </Text>
+              </View>
+            </View>
+            <View style={styles.commentList}>
+              <View><Image source={require('./img/profilePhoto.jpg')} style={styles.profile}/ ></View>
+              <Text style={{ fontSize: 12, fontWeight: 'bold' }}>Lisa</Text>
+              <Text style={{ fontSize: 12, color: '#333', marginLeft: 10 }}>
+                제가 찾던 사진이에요 감사
+              </Text>
+              <View
+                style={{
+                  width: '100%',
+                  position: 'absolute',
+                  left: 70,
+                  bottom: 10,
+                }}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    답글달기
+                  </Text>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    신고
+                  </Text>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    수정
+                  </Text>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    삭제
+                  </Text>
+                </View>
+                <Text
+                  style={{
+                    fontSize: 11,
+                    color: '#666',
+                    position: 'absolute',
+                    right: 70,
+                    bottom: 0,
+                  }}>
+                  1시간 전
+                </Text>
+              </View>
+            </View>
+            <View style={styles.commentList}>
+              <View><Image source={require('./img/profilePhoto5.jpg')} style={styles.profile}/ ></View>
+              <Text style={{ fontSize: 12, fontWeight: 'bold' }}>Lisa</Text>
+              <Text style={{ fontSize: 12, color: '#333', marginLeft: 10 }}>
+                제가 찾던 사진이에요 감사
+              </Text>
+              <View
+                style={{
+                  width: '100%',
+                  position: 'absolute',
+                  left: 70,
+                  bottom: 10,
+                }}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    답글달기
+                  </Text>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    신고
+                  </Text>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    수정
+                  </Text>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    삭제
+                  </Text>
+                </View>
+                <Text
+                  style={{
+                    fontSize: 11,
+                    color: '#666',
+                    position: 'absolute',
+                    right: 70,
+                    bottom: 0,
+                  }}>
+                  1시간 전
+                </Text>
+              </View>
+            </View>
+            <View style={styles.commentList}>
+              <View><Image source={require('./img/profilePhoto.jpg')} style={styles.profile}/ ></View>
+              <Text style={{ fontSize: 12, fontWeight: 'bold' }}>Lisa</Text>
+              <Text style={{ fontSize: 12, color: '#333', marginLeft: 10 }}>
+                제가 찾던 사진이에요 감사
+              </Text>
+              <View
+                style={{
+                  width: '100%',
+                  position: 'absolute',
+                  left: 70,
+                  bottom: 10,
+                }}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    답글달기
+                  </Text>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    신고
+                  </Text>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    수정
+                  </Text>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    삭제
+                  </Text>
+                </View>
+                <Text
+                  style={{
+                    fontSize: 11,
+                    color: '#666',
+                    position: 'absolute',
+                    right: 70,
+                    bottom: 0,
+                  }}>
+                  1시간 전
+                </Text>
+              </View>
+            </View>
+            <View style={styles.commentList}>
+              <View><Image source={require('./img/profilePhoto5.jpg')} style={styles.profile}/ ></View>
+              <Text style={{ fontSize: 12, fontWeight: 'bold' }}>Lisa</Text>
+              <Text style={{ fontSize: 12, color: '#333', marginLeft: 10 }}>
+                제가 찾던 사진이에요 감사
+              </Text>
+              <View
+                style={{
+                  width: '100%',
+                  position: 'absolute',
+                  left: 70,
+                  bottom: 10,
+                }}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    답글달기
+                  </Text>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    신고
+                  </Text>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    수정
+                  </Text>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    삭제
+                  </Text>
+                </View>
+                <Text
+                  style={{
+                    fontSize: 11,
+                    color: '#666',
+                    position: 'absolute',
+                    right: 70,
+                    bottom: 0,
+                  }}>
+                  1시간 전
+                </Text>
+              </View>
+            </View>
+            <View style={styles.commentList}>
+              <View><Image source={require('./img/profilePhoto4.jpg')} style={styles.profile}/ ></View>
+              <Text style={{ fontSize: 12, fontWeight: 'bold' }}>Lisa</Text>
+              <Text style={{ fontSize: 12, color: '#333', marginLeft: 10 }}>
+                제가 찾던 사진이에요 감사
+              </Text>
+              <View
+                style={{
+                  width: '100%',
+                  position: 'absolute',
+                  left: 70,
+                  bottom: 10,
+                }}>
+                <View style={{ flexDirection: 'row' }}>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    답글달기
+                  </Text>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    신고
+                  </Text>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    수정
+                  </Text>
+                  <Text
+                    style={{ fontSize: 11, color: '#666', marginRight: 22 }}>
+                    삭제
+                  </Text>
+                </View>
+                <Text
+                  style={{
+                    fontSize: 11,
+                    color: '#666',
+                    position: 'absolute',
+                    right: 70,
+                    bottom: 0,
+                  }}>
+                  1시간 전
+                </Text>
+              </View>
+            </View>
+          </View>
+        </ScrollView>
+        <KeyboardAvoidingView
+          style={{ height: 50 }}
+          behavior="position"
+          keyboardVerticalOffset={Platform.select({
+            ios: () => 0,
+            android: () => 25,
+          })()}>
+          <View style={styles.footer}>
+            <TextInput
+              style={styles.write}
+              placeholder="댓글을 남겨주세요"
+              onChangeText={this.handleText}
+            />
+            <View style={styles.myComment}>
+              <Text
+                style={{ fontSize: 15, fontWeight: 'bold', color: '#714ad5' }}>
+                등록
+              </Text>
+            </View>
+          </View>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    );
+  }
+}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: '100%',
+    height: 'auto',
+    marginTop: StatusBar.currentHeight
+  },
+  header: {
+    width:'100%',
+    height:58,
+    flexDirection: 'row',
+    backgroundColor: 'white',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 8,
+    zIndex:5
+  },
+  headerTxt: {
+    fontSize: 19,
+    textAlign: 'center',
+  },
+  
+  photoFill: {
+    width: '100%',
+    height:'84%'
+  },
+  close: {
+    left:'91%',
+    marginTop:30,
+    opacity:0.7
+  },
+  photoGood: {
+    position: 'absolute',
+    bottom: 58,
+    left: 28,
+  },
+  floating: {
+    position: 'absolute',
+    right: 24,
+    bottom: 57,
+  },
+  declaration: {
+    position: 'absolute',
+    right: 32,
+    bottom: 114,
+  },
+  down: {
+    position: 'absolute',
+    right: 85,
+    bottom: 59
+  },
+  share: {
+    position: 'absolute',
+    right: 32,
+    bottom: 154,
+  },
+  content: {
+    width: '100%',
+    backgroundColor: '#fff',
+  },
+  card: {
+    width: '100%',
+    height: 'auto',
+    backgroundColor: '#fff',
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 6 },
+    shadowRadius: 6,
+    elevation: 3,
+    marginBottom: 8,
+  },
+  user: {
+    width: '100%',
+    height: 64,
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    paddingTop: 12,
+  },
+  profile: {
+    width: 40,
+    height: 40,
+    borderRadius: 50,
+    backgroundColor: '#999',
+    justifyContent: 'center',
+    marginRight: 8,
+  },
+  photofeed: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#ccc',
+  },
+  txtfeed: {
+    width: '100%',
+    height: 'auto',
+    paddingHorizontal: 16,
+    paddingTop: 8,
+  },
+  commentBox: {
+    position: 'relative',
+    height: 30,
+    marginTop: 25,
+  },
+  commentList: {
+    width: '100%',
+    height: 60,
+    position: 'relative',
+    paddingHorizontal: 16,
+    flexDirection: 'row',
+    paddingTop: 10,
+    marginBottom: 4,
+    borderBottomWidth: 1,
+    borderColor: '#f5f5f5',
+  },
+
+  footer: {
+    width: '100%',
+    height: 50,
+    backgroundColor: '#fff',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderTopWidth:0.5,
+    borderColor:'#dbdbdb',
+    justifyContent: 'space-between',
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: -6 },
+    shadowRadius: 4,
+    elevation: 6,
+    zIndex: 5,
+  },
+  write: {
+    width: '88%',
+    paddingLeft: 24,
+    fontSize: 15,
+  },
+  myComment: {
+    width: 50,
+    height: 40,
+    justifyContent: 'center',
+  },
+});
+
+const actions = [{
+  icon: require('./img/Declaration.png')
+}];
