@@ -51,3 +51,6 @@ react-native run-android --port 8084 두 번째 명령 프롬프트 창에서 실행하십시오  
 다시 실행 react-native run-android --port 8084
 
 react-native start --reset-cache
+
+제플린
+https://app.zeplin.io/project/5c248d971c6890243dbf6b74
