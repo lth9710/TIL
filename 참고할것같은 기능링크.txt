@@ -5,3 +5,15 @@ https://github.com/ashishpandey001/react-native-flip-toggle-button
 
 토글버튼사용하기위한 lib
 npm i react-native-flip-toggle-button --save
+
+reactnative ui (각종 버튼 및 ui)
+https://github.com/madhavanmalolan/awesome-reactnative-ui
+
+
+
+react native uploader(동영상 업로드하면될거같은것 찾은것)
+-이미지 및 링크를 통한 업로드
+https://github.com/aroth/react-native-uploader
+
+-비디오 업로드
+https://stackoverflow.com/questions/44552073/upload-video-in-react-native
