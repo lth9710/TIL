@@ -1,0 +1,7 @@
+-마우스 위로갔을때 버튼숨기기
+https://www.snip2code.com/Snippet/1445969/react-native-action-button-hide-on-scrol
+-클릭했을때 버튼(토글버튼)
+https://github.com/ashishpandey001/react-native-flip-toggle-button
+
+토글버튼사용하기위한 lib
+npm i react-native-flip-toggle-button --save
