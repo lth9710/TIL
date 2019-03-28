@@ -17,3 +17,15 @@ https://github.com/aroth/react-native-uploader
 
 -비디오 업로드
 https://stackoverflow.com/questions/44552073/upload-video-in-react-native
+
+
+--collapse 하나만열기
+https://stackoverflow.com/questions/48947429/open-and-close-one-expandable-item-in-listview-react-native
+
+https://github.com/oblador/react-native-collapsible
+
+https://stackblitz.com/edit/reactstrap-v5-4rezrr?file=ListGroupCollapse.js
+
+https://stackoverflow.com/questions/54040109/how-can-i-hide-accordion-content-in-react-native-collapsible/54042618#54042618
+
+https://reactnativeexample.com/react-native-accordion-collapse-component/
