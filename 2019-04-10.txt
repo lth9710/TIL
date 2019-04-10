@@ -1,0 +1,39 @@
+﻿insert into artist(artist_id,artist_type,artist_name,sex)
+values (1,'1','스쿠',1)
+
+insert into favorite(user_id,artist_id,created,updated)
+values ('lth9710@naver.com',1,sysdate(),sysdate())
+
+
+[리액트 네이티브반복문](https://stackoverflow.com/questions/34648738/loop-in-react-native)
+[반복문참고](stackoverflow.com/questions/22876978/loop-inside-react-jsx)
+[이미지업로드](https://heartbeat.fritz.ai/how-to-upload-images-in-a-react-native-app-4cca03ded855)
+[화살표 애니메이션기능](https://stackoverflow.com/questions/51926189/scroll-to-a-position-and-set-left-right-arrow-in-react-native)
+
+해야할 기능 정리
+- 로그인 했을시 / 안했을시 구분하는 코드 필요
+
+
+=> 팔로우한 아티스트 보이기 / 안보이기
+
+
+=>게시물 항목 보이기 / 안보이기
+
+
+=> 업로드 버튼 보이기 / 안보이기
+
+
+
+1.팔로우한 아티스트목록 뿌려주기  ✔( 구상은했는데 테스트는 아직)
+
+2. 포스트 목록 뿌려주기(가장 기본적인화면) 
+
+3.포스트 눌렀을때 화면 구성 뿌려주기( 댓글 등등) 
+	-답글달기 기능 , 신고기능 , 댓글 수정 기능 , 댓글 삭제기능 
+4. 포스트에서 사진 눌렀을때 포토디테일 구성요소 뿌려주기
+	-공유기능 , 신고기능 , 다운로드기능
+	-좋아요기능
+
+5.업로드기능 추가
+	-사진 등록 , 글만등록 , 동영상등록 , 링크등록 , 파일업로드 및 글 게시하기
+
