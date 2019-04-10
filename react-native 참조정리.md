@@ -54,3 +54,5 @@ react-native start --reset-cache
 
 제플린
 https://app.zeplin.io/project/5c248d971c6890243dbf6b74
+
+[문법정리](https://g6ling.gitbooks.io/react-native-tutorial-korean/content/2_3ko.html)
